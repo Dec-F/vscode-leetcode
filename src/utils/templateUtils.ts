@@ -3,10 +3,10 @@ import * as vscode from "vscode";
 import { leetCodeChannel } from "../leetCodeChannel";
 
 export async function supplantTpl(tpl: string, node: IProblem, selectedLanguage: string): Promise<string | undefined> {
-  const reg = /[^{][a-zA-Z0-9]+(?=\})/g;
-  let matchResults: RegExpMatchArray = tpl.match(reg) || [];
+  const reg: RegExp = /[^{][a-zA-Z0-9]+(?=\})/g;
+  const matchResults: RegExpMatchArray = tpl.match(reg) || [];
   let str: string = "";
-  for (let token of matchResults) {
+  for (const token of matchResults) {
     str += await getFiledValue(token, node, selectedLanguage);
   }
 
