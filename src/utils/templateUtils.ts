@@ -30,7 +30,7 @@ async function getFiledValue(value: string, node: IProblem, selectedLanguage: st
       return await vscode.window.showQuickPick(node.tags, {
         matchOnDetail: true,
         placeHolder: "Multiple tags available, please select one",
-        ignoreFocusOut: true
+        ignoreFocusOut: true,
       });
     case "company":
       if (node.companies.length === 1) {
@@ -39,7 +39,7 @@ async function getFiledValue(value: string, node: IProblem, selectedLanguage: st
       return await vscode.window.showQuickPick(node.companies, {
         matchOnDetail: true,
         placeHolder: "Multiple companies available, please select one",
-        ignoreFocusOut: true
+        ignoreFocusOut: true,
       });
     default:
       const errorMsg: string = `The config '${value}' is not supported.`;

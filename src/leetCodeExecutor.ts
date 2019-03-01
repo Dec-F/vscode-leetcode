@@ -43,7 +43,7 @@ class LeetCodeExecutor {
     } catch (error) {
       const choice: vscode.MessageItem | undefined = await vscode.window.showErrorMessage(
         "LeetCode extension needs Node.js installed in environment path",
-        DialogOptions.open
+        DialogOptions.open,
       );
       if (choice === DialogOptions.open) {
         openUrl("https://nodejs.org");
@@ -75,7 +75,7 @@ class LeetCodeExecutor {
   public async listProblems(showLocked: boolean): Promise<string> {
     return await this.executeCommandEx(
       "node",
-      showLocked ? [await this.getLeetCodeBinaryPath(), "list"] : [await this.getLeetCodeBinaryPath(), "list", "-q", "L"]
+      showLocked ? [await this.getLeetCodeBinaryPath(), "list"] : [await this.getLeetCodeBinaryPath(), "list", "-q", "L"],
     );
   }
 
@@ -90,7 +90,7 @@ class LeetCodeExecutor {
         node.id,
         "-cx",
         "-l",
-        language
+        language,
       ]);
       await fse.writeFile(filePath, codeTemplate);
     }
@@ -114,7 +114,7 @@ class LeetCodeExecutor {
     return await this.executeCommandWithProgressEx("Submitting to LeetCode...", "node", [
       await this.getLeetCodeBinaryPath(),
       "submit",
-      `"${filePath}"`
+      `"${filePath}"`,
     ]);
   }
 
@@ -125,13 +125,13 @@ class LeetCodeExecutor {
         "test",
         `"${filePath}"`,
         "-t",
-        `${testString}`
+        `${testString}`,
       ]);
     }
     return await this.executeCommandWithProgressEx("Submitting to LeetCode...", "node", [
       await this.getLeetCodeBinaryPath(),
       "test",
-      `"${filePath}"`
+      `"${filePath}"`,
     ]);
   }
 
@@ -150,7 +150,7 @@ class LeetCodeExecutor {
     const companiesTagsPath: string = path.join(await leetCodeExecutor.getLeetCodeRootPath(), "lib", "plugins", "company.js");
     const companiesTagsSrc: string = (await fse.readFile(companiesTagsPath, "utf8")).replace(
       "module.exports = plugin",
-      "module.exports = { COMPONIES, TAGS }"
+      "module.exports = { COMPONIES, TAGS }",
     );
     const { COMPONIES, TAGS } = requireFromString(companiesTagsSrc, companiesTagsPath);
     return { companies: COMPONIES, tags: TAGS };
@@ -167,7 +167,7 @@ class LeetCodeExecutor {
     message: string,
     command: string,
     args: string[],
-    options: cp.SpawnOptions = { shell: true }
+    options: cp.SpawnOptions = { shell: true },
   ): Promise<string> {
     if (wsl.useWsl()) {
       return await executeCommandWithProgress(message, "wsl", [command].concat(args), options);

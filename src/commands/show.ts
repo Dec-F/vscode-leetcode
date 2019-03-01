@@ -28,7 +28,7 @@ export async function searchProblem(): Promise<void> {
   }
   const choice: IQuickItemEx<IProblem> | undefined = await vscode.window.showQuickPick(parseProblemsToPicks(list.listProblems()), {
     matchOnDetail: true,
-    placeHolder: "Select one problem"
+    placeHolder: "Select one problem",
   });
   if (!choice) {
     return;
@@ -73,7 +73,7 @@ async function showProblemInternal(node: IProblem): Promise<void> {
         `Would you like to set '${language}' as your default language?`,
         DialogOptions.yes,
         DialogOptions.no,
-        DialogOptions.never
+        DialogOptions.never,
       );
       if (choice === DialogOptions.yes) {
         leetCodeConfig.update("defaultLanguage", language, true /* UserSetting */);
@@ -96,12 +96,12 @@ async function parseProblemsToPicks(p: Promise<IProblem[]>): Promise<Array<IQuic
             label: `${parseProblemDecorator(problem.state, problem.locked)}${problem.id}.${problem.name}`,
             description: "",
             detail: `AC rate: ${problem.passRate}, Difficulty: ${problem.difficulty}`,
-            value: problem
-          }
-        )
+            value: problem,
+          },
+        ),
       );
       resolve(picks);
-    }
+    },
   );
 }
 
@@ -125,7 +125,7 @@ async function resolveRelativePath(value: string, node: IProblem, selectedLangua
       return await vscode.window.showQuickPick(node.tags, {
         matchOnDetail: true,
         placeHolder: "Multiple tags available, please select one",
-        ignoreFocusOut: true
+        ignoreFocusOut: true,
       });
     case "language":
       return selectedLanguage;
